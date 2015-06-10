@@ -1,21 +1,14 @@
 __author__ = 'grahamearley'
+import random
 
 from CharacterFrequencyCalibrator import CharacterFrequencyCalibrator
 
 c = CharacterFrequencyCalibrator("test.txt")
-text_for_decoding = c.clean_text
+
 
 def calculate_score(swap_dictionary):
-    text = text_for_decoding
 
-    for char in text:
-        if char in swap_dictionary:
-            text = str.replace(text, char, swap_dictionary[char].capitalize())
-
-    # Bring it back to lowercase now
-    text = text.lower()
-
-    print(text)
+    text = swap_text(swap_dictionary)
 
     score = 1
     i = 0
@@ -33,8 +26,50 @@ def calculate_score(swap_dictionary):
 
     return score
 
-# def acceptance_function(from_letter, to_letter):
 
-swap_map = {}
+def swap_text(swap_dictionary):
+    text = c.clean_text
 
-print(calculate_score(swap_map))
+    for char in text:
+        if char in swap_dictionary:
+            text = str.replace(text, char, swap_dictionary[char].capitalize())
+
+    # Bring it back to lowercase now
+    return text.lower()
+
+
+def accept_proposal(current_swap_dictionary, proposed_swap_dictionary):
+    proposed_score = calculate_score(proposed_swap_dictionary)
+    current_score = calculate_score(current_swap_dictionary)
+
+    ratio = proposed_score/current_score
+
+    unif_rand = random.uniform(0,1)
+
+    return unif_rand <= ratio
+
+swap_dictionary = {}
+runtimes = 1000
+
+for i in range(runtimes):
+    characters = "1234567890qwertyuiopasdfghjklzxcvbnm"
+    character_set = set(characters.split(""))
+    swap_char1 = random.choice(characters)
+    swap_char2 = random.choice(characters)
+
+    proposal_dictionary = swap_dictionary.copy()
+    while swap_char1 in proposal_dictionary and swap_char2 in proposal_dictionary:
+        # Make sure they're new characters for the swapping
+        swap_char1 = random.choice(characters)
+        swap_char2 = random.choice(characters)
+
+    proposal_dictionary[swap_char1] = swap_char2
+    proposal_dictionary[swap_char2] = swap_char1
+
+    if accept_proposal(swap_dictionary, proposal_dictionary):
+        swap_dictionary = proposal_dictionary
+
+    text = swap_text(swap_dictionary)
+    i += 1
+
+print(text)
