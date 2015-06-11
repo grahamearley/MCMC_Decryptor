@@ -3,12 +3,11 @@ import random
 
 from CharacterFrequencyCalibrator import CharacterFrequencyCalibrator
 
-c = CharacterFrequencyCalibrator("test.txt")
+c = CharacterFrequencyCalibrator("PrideAndPrejudice.txt")
 
 
-def calculate_score(swap_dictionary):
-
-    text = swap_text(swap_dictionary)
+def calculate_score(swap_dictionary, text):
+    text = swap_text(swap_dictionary, text)
 
     score = 1
     i = 0
@@ -27,9 +26,7 @@ def calculate_score(swap_dictionary):
     return score
 
 
-def swap_text(swap_dictionary):
-    text = c.clean_text
-
+def swap_text(swap_dictionary, text):
     for char in text:
         if char in swap_dictionary:
             text = str.replace(text, char, swap_dictionary[char].capitalize())
@@ -38,9 +35,9 @@ def swap_text(swap_dictionary):
     return text.lower()
 
 
-def accept_proposal(current_swap_dictionary, proposed_swap_dictionary):
-    proposed_score = calculate_score(proposed_swap_dictionary)
-    current_score = calculate_score(current_swap_dictionary)
+def accept_proposal(current_swap_dictionary, proposed_swap_dictionary, text):
+    proposed_score = calculate_score(proposed_swap_dictionary, text)
+    current_score = calculate_score(current_swap_dictionary, text)
 
     ratio = proposed_score/current_score
 
@@ -48,28 +45,27 @@ def accept_proposal(current_swap_dictionary, proposed_swap_dictionary):
 
     return unif_rand <= ratio
 
+encrypted_text = "xlitxisaxau it hatawnc nwa hwand udepocith oclxfu it dra mng ly drnd"
+
 swap_dictionary = {}
-runtimes = 1000
+runtimes = 100000
+
+characters = "qwertyuiopasdfghjklzxcvbnm"
 
 for i in range(runtimes):
-    characters = "1234567890qwertyuiopasdfghjklzxcvbnm"
-    character_set = set(characters.split(""))
     swap_char1 = random.choice(characters)
     swap_char2 = random.choice(characters)
 
     proposal_dictionary = swap_dictionary.copy()
-    while swap_char1 in proposal_dictionary and swap_char2 in proposal_dictionary:
-        # Make sure they're new characters for the swapping
-        swap_char1 = random.choice(characters)
-        swap_char2 = random.choice(characters)
 
     proposal_dictionary[swap_char1] = swap_char2
     proposal_dictionary[swap_char2] = swap_char1
 
-    if accept_proposal(swap_dictionary, proposal_dictionary):
+    if accept_proposal(swap_dictionary, proposal_dictionary, encrypted_text):
         swap_dictionary = proposal_dictionary
 
-    text = swap_text(swap_dictionary)
+    encrypted_text = swap_text(swap_dictionary, encrypted_text)
+    # print(i, text)
     i += 1
 
-print(text)
+print(encrypted_text)
