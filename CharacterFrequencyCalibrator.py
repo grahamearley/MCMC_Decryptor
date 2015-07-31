@@ -10,7 +10,6 @@ class CharacterFrequencyCalibrator:
 
     def __init__(self, input_file_location):
         self.input_text_file = open(input_file_location, 'r')
-        self.clean_text = self.calibrate_characters()
         self.frequencies_dict = self.count_character_appearances()
 
     def calibrate_characters(self):
@@ -21,7 +20,7 @@ class CharacterFrequencyCalibrator:
             if char == "\n":
                 # Set line breaks as spaces.
                 non_punctuation_chars.append(" ")
-            elif char not in "`~!@#$%^&*()-_=+[{]}\|;:'\",<.>/?":
+            elif char not in "`~!@#$%^&*()-_=+[{]}\|;:'\",<.>/?1234567890":
                 # Store it if it's not punctuation, etc.
                 non_punctuation_chars.append(char)
 
@@ -31,12 +30,14 @@ class CharacterFrequencyCalibrator:
         return non_punctuation_text
 
     def count_character_appearances(self):
+        clean_text = self.calibrate_characters()
+
         frequencies_dict = {}
-        text_length = len(self.clean_text)-1
+        text_length = len(clean_text)-1
 
         i = 0
         while i < text_length:
-            char_pair = self.clean_text[i] + self.clean_text[i+1]
+            char_pair = clean_text[i] + clean_text[i+1]
 
             if char_pair in frequencies_dict:
                 frequencies_dict[char_pair] += 1
