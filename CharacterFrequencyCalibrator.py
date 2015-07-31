@@ -12,7 +12,7 @@ class CharacterFrequencyCalibrator:
         self.input_text_file = open(input_file_location, 'r')
         self.frequencies_dict = self.count_character_appearances()
 
-    def calibrate_characters(self):
+    def clean_text(self):
         non_punctuation_chars = []
         text = self.input_text_file.read().lower()  # (Make all text lower case)
 
@@ -30,7 +30,7 @@ class CharacterFrequencyCalibrator:
         return non_punctuation_text
 
     def count_character_appearances(self):
-        clean_text = self.calibrate_characters()
+        clean_text = self.clean_text()
 
         frequencies_dict = {}
         text_length = len(clean_text)-1
