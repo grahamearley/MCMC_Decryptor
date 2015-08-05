@@ -1,4 +1,10 @@
-__author__ = 'grahamearley'
+"""
+Graham Earley, 2015.
+
+Read more about the algorithm here:
+https://en.wikipedia.org/wiki/Metropolis–Hastings_algorithm
+"""
+
 import random
 
 from CharacterFrequencyCalibrator import CharacterFrequencyCalibrator
@@ -34,19 +40,16 @@ def swap_chars_in_text(text, swap_char1, swap_char2):
 
 
 calibrator = CharacterFrequencyCalibrator("PrideAndPrejudice.txt")
-encrypted_text_file = open('encrypted.txt', 'r')
-encrypted_text = encrypted_text_file.read().lower()
+encrypted_text = open('encrypted.txt', 'r').read().lower()
 
 letters = "qwertyuiopasdfghjklzxcvbnm"
 runtimes = 10000
 for run in range(runtimes):
-    # print("Initial: " + encrypted_text)
-
+    # Pick two characters to swap (uniformly, at random)
     swap_char1 = random.choice(letters)
     swap_char2 = random.choice(letters)
-    # print(" --- Swapping " + swap_char1 + " with " + swap_char2)
 
-    # Determine whether to accept the proposal:
+    # Determine whether to accept the proposal by comparing scores:
     swapped_text = swap_chars_in_text(encrypted_text, swap_char1, swap_char2)
     proposed_score = calculate_score(swapped_text, calibrator)
     current_score = calculate_score(encrypted_text, calibrator)
@@ -54,11 +57,8 @@ for run in range(runtimes):
 
     unif_rand = random.uniform(0, 1)
 
-    if unif_rand <= acceptance_ratio:  # Accept!
-        # print(" ++++ Accepted!")
+    # If
+    if unif_rand <= acceptance_ratio:
         encrypted_text = swapped_text
-    #     print(encrypted_text)
-    # else:
-    #     print(" ---- Rejected. ----")
 
 print(encrypted_text)
