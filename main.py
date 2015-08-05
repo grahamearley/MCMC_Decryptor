@@ -4,7 +4,6 @@ Graham Earley, 2015.
 Read more about the algorithm here:
 https://en.wikipedia.org/wiki/Metropolis–Hastings_algorithm
 """
-
 import random
 
 from CharacterFrequencyCalibrator import CharacterFrequencyCalibrator

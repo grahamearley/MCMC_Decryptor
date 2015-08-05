@@ -1,6 +1,3 @@
-__author__ = 'grahamearley'
-
-
 class CharacterFrequencyCalibrator:
     """
     A class for storing the frequencies of character pairings,
