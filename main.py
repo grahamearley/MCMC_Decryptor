@@ -33,17 +33,11 @@ def swap_chars_in_text(text, swap_char1, swap_char2):
     return swapped_text
 
 
-calibrator = CharacterFrequencyCalibrator("test.txt")
+calibrator = CharacterFrequencyCalibrator("PrideAndPrejudice.txt")
+encrypted_text_file = open('encrypted.txt', 'r')
+encrypted_text = encrypted_text_file.read().lower()
 
-# Jane Austen encrypted sample:
-# encrypted_text = "cdsvmce vd ufey, ht vd edde dkifnv it vds. lfy, yvifnv lhknodp mkz qmkd uddy yiodsmlop itydk, hy he kdrds tis umkp vifse yindyvds; mkz, me yvdp moxmpe edd dmbv iyvds hk omsnd uhgdz cmsyhde, hy he hucieehlod yvmy drdsp uiudky evifoz ld ducoipdz hk bikrdsehkn yindyvds. qmkd evifoz yvdsdtisd umjd yvd uiey it drdsp vmot-vifs hk xvhbv evd bmk biuumkz vhe myydkyhik. xvdk evd he edbfsd it vhu, yvdsd xhoo ld uisd odhefsd tis tmoohkn hk oird me ufbv me evd bviiede."
-
-# My own encrypted sample:
-encrypted_text = "snon'i j ijmrfn rjojtojrs usju d woyun, dpiunjb ye zjpn jkiunp. d syrn usju mh fnuuno joojptnmnpui sjqn j idmdfjo eongknpxh ji snoi. yp jpyusno pyun, d tknii usn roytojm *byni* wyoc, aku ypfh eyo j xnoujdp usonisyfb ye unlu fnptus? d usdpc usnon'i oyym eyo iymn dpunoniudpt jpjfhidi snon! skvvjs! d jm anekbbfnb usju usdi nlgkdidun ijmrfn bdb pyu ekffh bnxohru wdus usn jxxkojxh d sjb ronikmnb d wykfb inn. mjhsjr d pnnb uy ikrrfh j fjotno qyxjakfjoh iy ji uy roninpu qjodyki jfunopjun joojptnmnpui ye fnuunoi jpb xsjojxunoi, yo wsju sjqn hyk."
-
-encrypted_text = encrypted_text.lower()
 letters = "qwertyuiopasdfghjklzxcvbnm"
-
 runtimes = 10000
 for run in range(runtimes):
     # print("Initial: " + encrypted_text)
