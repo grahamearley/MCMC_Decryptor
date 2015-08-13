@@ -1,4 +1,4 @@
-# Cryptoquip Solver
+# MCMC Decryptor
 
 An implementation of the decryption method described by Persi Diaconis in his paper [The Markov Chain Monte Carlo Revolution](http://statweb.stanford.edu/~cgates/PERSI/papers/MCMCRev.pdf) and used as an example in Bob Dobrow's *Introduction to Stochastic Processes with R*.
 
