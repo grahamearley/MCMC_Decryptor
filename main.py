@@ -7,6 +7,7 @@ https://en.wikipedia.org/wiki/Metropolis–Hastings_algorithm
 import random
 
 from CharacterFrequencyCalibrator import CharacterFrequencyCalibrator
+from SwapEncryptor import SwapEncryptor
 
 
 def calculate_score(text, calibrator):
@@ -38,8 +39,9 @@ def swap_chars_in_text(text, swap_char1, swap_char2):
     return swapped_text
 
 
-calibrator = CharacterFrequencyCalibrator("PrideAndPrejudice.txt")
-encrypted_text = open('encrypted.txt', 'r').read().lower()
+encryptor = SwapEncryptor("qwertyuiopasdfghjklzxcvbnm")
+calibrator = CharacterFrequencyCalibrator("ShakespeareWorks.txt")
+encrypted_text = encryptor.encrypt(open('secret.txt', 'r').read().lower())
 
 letters = "qwertyuiopasdfghjklzxcvbnm"
 runtimes = 10000
@@ -56,7 +58,6 @@ for run in range(runtimes):
 
     unif_rand = random.uniform(0, 1)
 
-    # If
     if unif_rand <= acceptance_ratio:
         encrypted_text = swapped_text
 

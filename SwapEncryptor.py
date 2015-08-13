@@ -8,19 +8,22 @@ class SwapEncryptor:
         # encrypted_alphabet should be a string whose
         # characters correspond to an alphabet character.
         #       e.g. "abcd" -> "wdsy" would map 'a' to 'w', 'b'
-        #             to 'd', etc.
+        #             to 'd', etc. (note: the string must be 26 chars)
         self.encrypted_alphabet = self.verify_encrypted_alphabet(encrypted_alphabet)
 
     def encrypt(self, text):
         alphabet = "abcdefghijklmnopqrstuvwxyz"
         encrypted_text = text.lower()
-        for char in alphabet:
-            char_index = alphabet.index(char)
-            encrypted_char = self.encrypted_alphabet[char_index]
+        for char in encrypted_text:
+            if char in alphabet:
+                char_index_in_alphabet = alphabet.index(char)
+                encrypted_char = self.encrypted_alphabet[char_index_in_alphabet]
 
-            encrypted_text = encrypted_text.replace(char, encrypted_char)
+                encrypted_text = encrypted_text.replace(char, encrypted_char.upper())
+                # ^^ Replace the char with its encryption char in uppercase, so that the
+                # loop to indicate that that char has already been swapped.
 
-        return encrypted_text
+        return encrypted_text.lower()
 
     @staticmethod
     def verify_encrypted_alphabet(encrypted_alphabet):
