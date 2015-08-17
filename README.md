@@ -5,4 +5,4 @@ An implementation of the decryption method described by Persi Diaconis in his pa
 Using MCMC, the program decrypts simply encoded messages by getting closer and closer to the correct decryption function with each iteration.
 
 #### To do:
-- Analyze calibration text source and input text for decryption to approximate rate of convergence to the algorithm's convergence.
+- Analyze calibration text source and input text for decryption to approximate this implementation's rate of convergence.
